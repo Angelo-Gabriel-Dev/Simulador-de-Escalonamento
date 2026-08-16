@@ -1,0 +1,17 @@
+# build
+bin/
+build/
+
+# resultados brutos individuais (dezenas de milhares de arquivos pequenos
+# na configuracao de 1000 seeds/cenario) -- os consolidados em
+# results/consolidated/ SAO versionados
+results/raw/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+
+# SO / editor
+.DS_Store
+*.swp
