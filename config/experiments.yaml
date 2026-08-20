@@ -1,0 +1,67 @@
+# config/experiments.yaml
+#
+# Parametros dos experimentos PRINCIPAIS do artigo. Este arquivo e a
+# referencia legivel/versionada desses parametros; scripts/run_experiments.sh
+# usa as MESMAS constantes como variaveis de shell no topo do script (evitar
+# um parser de YAML em bash para um punhado de escalares nao trouxe beneficio
+# de reprodutibilidade suficiente para justificar a dependencia extra -- ver
+# docs/decisoes_projeto.md). Se voce mudar um valor aqui, mude tambem no
+# topo de run_experiments.sh.
+
+main_experiment:
+  n_processes: 1000          # minimo obrigatorio (Secao 5): >= 1000
+  seeds_per_scenario: 1000    # padrao real do script (ver run_experiments.sh); minimo OBRIGATORIO do enunciado (Secao 7) e >= 100 -- use SEEDS_PER_SCENARIO=100 para o minimo, mais rapido
+  seed_start: 1                # seeds usadas: 1, 2, ..., 1000 (mesmas para todos os algoritmos)
+  context_switch_cost: 1      # > 0, obrigatorio nos experimentos principais
+  io_devices: 1                 # padrao sugerido no prompt mestre
+  quantum: 4                    # padrao sugerido para o Round Robin
+  k1: 0.05                       # peso de aging do algoritmo proprio (calibrado -- ver docs/algoritmo_proprio.md)
+  k2: 0.3                        # peso da rajada estimada do algoritmo proprio
+  initial_burst_estimate: 10.0
+  ema_alpha: 0.5
+
+  scenarios: [balanced, io_bound, cpu_bound, priority_skew]
+  algorithms: [fcfs, rr, priority, custom]
+
+complementary_analysis:
+  description: >
+    Execucoes extras com custo de troca de contexto = 0, para isolar o
+    efeito do custo de troca de contexto nas metricas (permitido pelo
+    enunciado como analise complementar, nao substitui os experimentos
+    principais). Mesmos cenarios/algoritmos/seeds do experimento principal.
+  context_switch_cost: 0
+
+  quantum_sensitivity:
+    description: >
+      Execucao extra so do Round Robin no cenario cpu_bound com quantum
+      maior, para investigar o efeito observado no experimento principal
+      (RR com quantum pequeno frente a rajadas longas gera muito mais
+      trocas de contexto e piora bastante o turnaround medio -- ver
+      Discussao do artigo).
+    scenario: cpu_bound
+    algorithm: rr
+    quantum: 20
+
+  k1_sensitivity:
+    description: >
+      Execucoes extras do algoritmo proprio variando k1 (peso de aging) em
+      {0.5, 0.05, 0.005}, mantendo k2 fixo, nos 4 cenarios. Documenta o
+      processo de calibracao: k1=0.5 faz o termo de aging dominar quase
+      imediatamente frente aos tempos de espera observados (centenas de
+      unidades de tempo), degenerando o algoritmo para um comportamento
+      quase identico ao FCFS; k1=0.005 e fraco demais e aproxima o
+      algoritmo do comportamento (pouco justo) da Prioridade estatica;
+      k1=0.05 foi escolhido como padrao por equilibrar turnaround e
+      justica (ver docs/algoritmo_proprio.md).
+    k1_values: [0.5, 0.05, 0.005]
+
+expanded_config_optional:
+  description: >
+    Configuracao ampliada (Secao 5, opcional, nao substitui a minima nem
+    o padrao). O padrao ja usa 1000 seeds/cenario (10x o minimo
+    obrigatorio); a configuracao ampliada aumenta tambem N_PROCESSES para
+    10000. Nao executada por padrao por custo de tempo; run_experiments.sh
+    aceita N_PROCESSES e SEEDS_PER_SCENARIO como variaveis de ambiente
+    para quem quiser rodar em escala ainda maior.
+  n_processes: 10000
+  seeds_per_scenario: 1000
