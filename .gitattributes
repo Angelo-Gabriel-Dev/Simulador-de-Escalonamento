@@ -1,0 +1,21 @@
+* text=auto
+
+# Arquivos executados ou processados no ambiente Unix/WSL
+*.c text eol=lf
+*.h text eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.js text eol=lf
+Makefile text eol=lf
+
+# Configuracao, documentacao e resultados textuais
+*.json text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.md text eol=lf
+*.csv text eol=lf
+
+# Artefatos binarios
+*.png binary
+*.pdf binary
+*.pptx binary
