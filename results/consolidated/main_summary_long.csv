@@ -1,0 +1,97 @@
+scenario,scenario_label,algorithm,algorithm_label,metric,metric_label,mean,ci95,n_seeds,n_processes,quantum,context_switch_cost,io_devices
+balanced,Aleatorio equilibrado,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_slowdown,Slowdown medio (auxiliar),7.4504656690000015,0.17759984613826268,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,fcfs,FCFS,avg_slowdown,Slowdown medio (auxiliar),7.541728386,0.17862132956700358,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,priority,Prioridade,avg_slowdown,Slowdown medio (auxiliar),8.922383809,0.23396828236790596,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,rr,Round Robin,avg_slowdown,Slowdown medio (auxiliar),50.881036593999994,1.2817883099501148,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround,Turnaround medio,305.756786,7.16863735364683,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,fcfs,FCFS,avg_turnaround,Turnaround medio,305.84541500000006,7.152532995514154,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,priority,Prioridade,avg_turnaround,Turnaround medio,266.974204,5.611571058039324,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,rr,Round Robin,avg_turnaround,Turnaround medio,2277.30451,58.27189532678369,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),196.726482754,6.072698668680873,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,fcfs,FCFS,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),305.65931558799997,7.238297025722461,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,priority,Prioridade,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),82.083005842,0.23269478230104718,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,rr,Round Robin,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),2275.123971949,58.529643026606756,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),421.9970550330001,8.33125576139116,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,fcfs,FCFS,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),305.63597098500003,7.131731622364007,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,priority,Prioridade,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),627.3670989990001,18.02830991644609,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,rr,Round Robin,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),2278.39466243,58.58797364437874,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,custom,Algoritmo proprio (Aging+Rajada Estimada),context_switches,Trocas de contexto,3002.369,2.7683206363150656,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,fcfs,FCFS,context_switches,Trocas de contexto,3002.369,2.7683206363150656,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,priority,Prioridade,context_switches,Trocas de contexto,3002.369,2.7683206363150656,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,rr,Round Robin,context_switches,Trocas de contexto,9254.694,11.685366617137836,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,custom,Algoritmo proprio (Aging+Rajada Estimada),jain_slowdown,Indice de Jain do slowdown (%),37.897368863,0.3275538657841913,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,fcfs,FCFS,jain_slowdown,Indice de Jain do slowdown (%),43.120896664,0.37690437444862307,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,priority,Prioridade,jain_slowdown,Indice de Jain do slowdown (%),7.401134541999999,0.23040017856958703,1000,1000,4,1,1
+balanced,Aleatorio equilibrado,rr,Round Robin,jain_slowdown,Indice de Jain do slowdown (%),71.649875805,0.4887375174662249,1000,1000,4,1,1
+cpu_bound,CPU-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_slowdown,Slowdown medio (auxiliar),5.866170086,0.10610308781484513,1000,1000,4,1,1
+cpu_bound,CPU-bound,fcfs,FCFS,avg_slowdown,Slowdown medio (auxiliar),6.02551662,0.10645682443917444,1000,1000,4,1,1
+cpu_bound,CPU-bound,priority,Prioridade,avg_slowdown,Slowdown medio (auxiliar),6.227531887,0.11866097801476225,1000,1000,4,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_slowdown,Slowdown medio (auxiliar),65.03318264699999,1.640714109990263,1000,1000,4,1,1
+cpu_bound,CPU-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround,Turnaround medio,306.11495,5.3495688327364155,1000,1000,4,1,1
+cpu_bound,CPU-bound,fcfs,FCFS,avg_turnaround,Turnaround medio,295.952209,5.257972518267672,1000,1000,4,1,1
+cpu_bound,CPU-bound,priority,Prioridade,avg_turnaround,Turnaround medio,271.062875,4.535787658532128,1000,1000,4,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_turnaround,Turnaround medio,3384.6408989999995,86.38698556529485,1000,1000,4,1,1
+cpu_bound,CPU-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),234.641001582,4.856766560872171,1000,1000,4,1,1
+cpu_bound,CPU-bound,fcfs,FCFS,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),295.32616477199997,5.382365948109911,1000,1000,4,1,1
+cpu_bound,CPU-bound,priority,Prioridade,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),95.81645879800001,0.27810259347667016,1000,1000,4,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),3379.971647643,86.72757648396782,1000,1000,4,1,1
+cpu_bound,CPU-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),380.426473408,6.039931294316088,1000,1000,4,1,1
+cpu_bound,CPU-bound,fcfs,FCFS,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),296.988739332,5.305969198384925,1000,1000,4,1,1
+cpu_bound,CPU-bound,priority,Prioridade,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),599.5773413740001,14.137256674596888,1000,1000,4,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),3392.88521753,87.11310465450248,1000,1000,4,1,1
+cpu_bound,CPU-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),context_switches,Trocas de contexto,1999.862,1.6022748149903474,1000,1000,4,1,1
+cpu_bound,CPU-bound,fcfs,FCFS,context_switches,Trocas de contexto,1999.862,1.6022748149903474,1000,1000,4,1,1
+cpu_bound,CPU-bound,priority,Prioridade,context_switches,Trocas de contexto,1999.862,1.6022748149903474,1000,1000,4,1,1
+cpu_bound,CPU-bound,rr,Round Robin,context_switches,Trocas de contexto,13093.809,16.11546812434119,1000,1000,4,1,1
+cpu_bound,CPU-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),jain_slowdown,Indice de Jain do slowdown (%),54.996032704,0.3170043095218528,1000,1000,4,1,1
+cpu_bound,CPU-bound,fcfs,FCFS,jain_slowdown,Indice de Jain do slowdown (%),56.61918286,0.34798472962014304,1000,1000,4,1,1
+cpu_bound,CPU-bound,priority,Prioridade,jain_slowdown,Indice de Jain do slowdown (%),15.749047398999998,0.32661241648355427,1000,1000,4,1,1
+cpu_bound,CPU-bound,rr,Round Robin,jain_slowdown,Indice de Jain do slowdown (%),77.21148865800001,0.524803446506017,1000,1000,4,1,1
+io_bound,I/O-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_slowdown,Slowdown medio (auxiliar),2.867802851,0.021783496121350117,1000,1000,4,1,1
+io_bound,I/O-bound,fcfs,FCFS,avg_slowdown,Slowdown medio (auxiliar),2.874663458,0.021814237012636937,1000,1000,4,1,1
+io_bound,I/O-bound,priority,Prioridade,avg_slowdown,Slowdown medio (auxiliar),2.8701206759999995,0.021792724121663,1000,1000,4,1,1
+io_bound,I/O-bound,rr,Round Robin,avg_slowdown,Slowdown medio (auxiliar),2.936528619,0.021866977034237824,1000,1000,4,1,1
+io_bound,I/O-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround,Turnaround medio,143.04599900000002,1.1331929116784736,1000,1000,4,1,1
+io_bound,I/O-bound,fcfs,FCFS,avg_turnaround,Turnaround medio,143.47867699999998,1.1359040895404844,1000,1000,4,1,1
+io_bound,I/O-bound,priority,Prioridade,avg_turnaround,Turnaround medio,143.18831,1.1338666666218433,1000,1000,4,1,1
+io_bound,I/O-bound,rr,Round Robin,avg_turnaround,Turnaround medio,146.657795,1.1398254517368327,1000,1000,4,1,1
+io_bound,I/O-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),141.02574358999996,1.1662140009110504,1000,1000,4,1,1
+io_bound,I/O-bound,fcfs,FCFS,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),143.285651205,1.179358565759985,1000,1000,4,1,1
+io_bound,I/O-bound,priority,Prioridade,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),141.062236257,1.1664264897104475,1000,1000,4,1,1
+io_bound,I/O-bound,rr,Round Robin,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),146.44554405699995,1.1839649224811946,1000,1000,4,1,1
+io_bound,I/O-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),145.567755914,1.17370967371077,1000,1000,4,1,1
+io_bound,I/O-bound,fcfs,FCFS,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),143.75313474100003,1.1641211836407421,1000,1000,4,1,1
+io_bound,I/O-bound,priority,Prioridade,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),145.87500733499996,1.1757695249250633,1000,1000,4,1,1
+io_bound,I/O-bound,rr,Round Robin,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),146.943288147,1.1684593371463636,1000,1000,4,1,1
+io_bound,I/O-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),context_switches,Trocas de contexto,5499.319,3.3568950301112466,1000,1000,4,1,1
+io_bound,I/O-bound,fcfs,FCFS,context_switches,Trocas de contexto,5499.319,3.3568950301112466,1000,1000,4,1,1
+io_bound,I/O-bound,priority,Prioridade,context_switches,Trocas de contexto,5499.319,3.3568950301112466,1000,1000,4,1,1
+io_bound,I/O-bound,rr,Round Robin,context_switches,Trocas de contexto,6029.774,4.176368272840506,1000,1000,4,1,1
+io_bound,I/O-bound,custom,Algoritmo proprio (Aging+Rajada Estimada),jain_slowdown,Indice de Jain do slowdown (%),70.12642986,0.35693750762914467,1000,1000,4,1,1
+io_bound,I/O-bound,fcfs,FCFS,jain_slowdown,Indice de Jain do slowdown (%),70.26500504,0.35787734011959776,1000,1000,4,1,1
+io_bound,I/O-bound,priority,Prioridade,jain_slowdown,Indice de Jain do slowdown (%),70.13846065,0.3565901483734474,1000,1000,4,1,1
+io_bound,I/O-bound,rr,Round Robin,jain_slowdown,Indice de Jain do slowdown (%),71.01471067,0.35570947670254505,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_slowdown,Slowdown medio (auxiliar),7.441861865000001,0.17204979597313974,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,fcfs,FCFS,avg_slowdown,Slowdown medio (auxiliar),7.5447166459999995,0.1727910791985215,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,priority,Prioridade,avg_slowdown,Slowdown medio (auxiliar),8.920693315000001,0.23519611275985547,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,rr,Round Robin,avg_slowdown,Slowdown medio (auxiliar),50.334427957,1.2563375796261524,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround,Turnaround medio,305.310067,6.894920539483023,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,fcfs,FCFS,avg_turnaround,Turnaround medio,305.12961,6.875886156610558,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,priority,Prioridade,avg_turnaround,Turnaround medio,265.60546300000004,5.449183672365086,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,rr,Round Robin,avg_turnaround,Turnaround medio,2255.078127,57.30028212690082,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),270.038602998,6.607354446068881,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,fcfs,FCFS,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),305.21697356,6.914814665258444,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,priority,Prioridade,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),146.171019314,1.321087127542454,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,rr,Round Robin,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),2255.250972017,57.289499818041996,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,custom,Algoritmo proprio (Aging+Rajada Estimada),avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),505.404349409,9.05237616973768,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,fcfs,FCFS,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),304.680668922,6.840050511125643,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,priority,Prioridade,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),946.245043328,30.88265529575174,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,rr,Round Robin,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),2253.909913315,58.2180410586628,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,custom,Algoritmo proprio (Aging+Rajada Estimada),context_switches,Trocas de contexto,3000.866,2.724385986756509,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,fcfs,FCFS,context_switches,Trocas de contexto,3000.866,2.724385986756509,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,priority,Prioridade,context_switches,Trocas de contexto,3000.866,2.724385986756509,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,rr,Round Robin,context_switches,Trocas de contexto,9248.703,11.863920937612468,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,custom,Algoritmo proprio (Aging+Rajada Estimada),jain_slowdown,Indice de Jain do slowdown (%),37.996801667,0.3467241522889423,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,fcfs,FCFS,jain_slowdown,Indice de Jain do slowdown (%),42.880600296999994,0.3905553299523767,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,priority,Prioridade,jain_slowdown,Indice de Jain do slowdown (%),7.624096845,0.24475307456070847,1000,1000,4,1,1
+priority_skew,Prioridades desbalanceadas,rr,Round Robin,jain_slowdown,Indice de Jain do slowdown (%),71.601540863,0.500257665700927,1000,1000,4,1,1
