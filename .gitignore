@@ -12,6 +12,9 @@ __pycache__/
 *.pyc
 .venv/
 
+# dependencias JavaScript
+node_modules/
+
 # SO / editor
 .DS_Store
 *.swp

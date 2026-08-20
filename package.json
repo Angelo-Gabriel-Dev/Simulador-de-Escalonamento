@@ -1,0 +1,12 @@
+{
+  "name": "simulador-de-escalonamento",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Simulador de escalonamento de processos e seus artefatos de apresentacao.",
+  "scripts": {
+    "build:slides": "node slides/build_slides.js"
+  },
+  "devDependencies": {
+    "pptxgenjs": "4.0.1"
+  }
+}
