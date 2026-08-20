@@ -2,10 +2,13 @@
 bin/
 build/
 
-# resultados brutos individuais (dezenas de milhares de arquivos pequenos
-# na configuracao de 1000 seeds/cenario) -- os consolidados em
-# results/consolidated/ SAO versionados
-results/raw/
+# resultados brutos individuais (dezenas de milhares de arquivos pequenos)
+# sao redundantes; os quatro CSVs agregados results/raw/all_runs_*.csv ficam
+# versionados junto com os consolidados em results/consolidated/
+results/raw/main/
+results/raw/complementary_csw0/
+results/raw/complementary_quantum/
+results/raw/complementary_k1/
 
 # python
 __pycache__/

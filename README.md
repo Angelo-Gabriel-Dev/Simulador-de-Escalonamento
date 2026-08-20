@@ -99,11 +99,13 @@ próprio, xorshift128+, não depende de `rand()`/`srand()` da libc — ver
 `docs/decisoes_projeto.md`). Verificado automaticamente em
 `tests/test_workload_reproducibility.c` e `tests/test_rng.c`.
 
-Os resultados brutos individuais (`results/raw/`) não são versionados por
-volume (dezenas de milhares de arquivos pequenos na configuração de 1000
-seeds — ver `.gitignore`); os consolidados
-(`results/consolidated/*.csv`) e as figuras (`report/figuras/*.png`) são
-versionados. Para regenerar tudo do zero: `make clean && make all && bash
+Os quatro datasets brutos agregados (`results/raw/all_runs_*.csv`) são
+versionados e contêm todas as execuções usadas nas análises. Somente os
+arquivos intermediários, um por execução, permanecem fora do Git por serem
+redundantes e somarem dezenas de milhares de arquivos (ver `.gitignore`).
+Os consolidados (`results/consolidated/*.csv`) e as figuras
+(`report/figuras/*.png`) também são versionados. Para regenerar tudo do zero:
+`make clean && make all && bash
 scripts/run_experiments.sh && python3 scripts/analyze_results.py [...] &&
 python3 scripts/generate_plots.py` (ver comandos completos acima).
 
@@ -125,7 +127,7 @@ src/                  # simulador em C
 config/               # scenarios.json, experiments.yaml
 scripts/              # run_experiments.sh, analyze_results.py, generate_plots.py
 results/
-  raw/                # csv bruto por (cenário, algoritmo, seed) -- gerado, não versionado
+  raw/                # datasets brutos agregados -- versionados
   consolidated/        # csv consolidado (média + IC95%) -- versionado
 docs/
   modelagem.md         # decisões de modelagem (E/S, troca de contexto, chegadas, desempates)
