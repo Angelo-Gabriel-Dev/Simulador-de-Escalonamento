@@ -11,6 +11,7 @@ pipeline de experimentos/análise estatística em Python.
 - `gcc` (padrão C11) e `make`
 - Python 3.10+ com `pip install -r scripts/requirements.txt`
   (pandas, numpy, scipy, matplotlib, seaborn)
+- Node.js 18+ e npm (somente para gerar a apresentação)
 - Bash (`scripts/run_experiments.sh` usa `bash`, não `/bin/sh` puro)
 
 **No Windows**, recomenda-se rodar tudo dentro do WSL2 (não no PowerShell/cmd
@@ -29,6 +30,13 @@ found`, verifique o final de linha com `file scripts/run_experiments.sh`
 make all          # compila bin/scheduler-sim
 make test         # compila e roda a suíte de testes unitários (tests/test_*.c)
 make clean        # remove bin/ e build/
+```
+
+Para regenerar a apresentação a partir das figuras consolidadas:
+
+```bash
+npm ci
+npm run build:slides
 ```
 
 ## Execução manual de uma simulação
@@ -129,7 +137,8 @@ report/
 slides/
   apresentacao.pptx     # slides da apresentação (10-12 min)
 tests/                  # testes unitários (make test)
-responsabilidades.md    # divisão de tarefas entre os 4 integrantes
+package.json            # dependência e comando de geração dos slides
+package-lock.json       # versões reproduzíveis das dependências JavaScript
 ```
 
 ## Testes
@@ -150,15 +159,9 @@ desenvolvimento (sem erros em nenhuma das 16 combinações
 cenário×algoritmo, incluindo parâmetros não-padrão de custo de troca e
 nº de dispositivos de E/S).
 
-## Equipe e fluxo de trabalho Git
+## Equipe
 
-Ver `responsabilidades.md` para a divisão de tarefas completa. Branches:
-`main` (protegida) ← `develop` ← `feature/<nome>-<módulo>` (uma por
-integrante). O histórico de commits neste repositório foi montado seguindo
-o backlog combinado pela equipe (mensagens no padrão Conventional
-Commits); **antes de enviar para o repositório GitHub definitivo, cada
-integrante deve revisar os commits do seu módulo e, se necessário,
-recommitar com sua própria identidade Git (`git config user.name` /
-`user.email`) para que a participação individual apareça corretamente no
-histórico do GitHub**, conforme pede o critério de avaliação de
-reprodutibilidade/organização do repositório.
+Projeto desenvolvido colaborativamente por Ângelo Gabriel Alves Freire
+Duarte, Jetro Kepler Gomes Alencar Gonzaga Viana, José Luiz de Lima Mendes
+e Dorian Dayvid Gomes Feitosa. As contribuições individuais estão
+registradas no histórico de commits do repositório.
