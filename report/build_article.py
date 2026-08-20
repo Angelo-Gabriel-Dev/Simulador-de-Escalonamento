@@ -6,6 +6,7 @@ Monta o artigo cientifico final (report/artigo.pdf), formato IEEE de duas
 colunas, a partir dos dados reais em results/consolidated/ (via
 article_data.py -- nenhum numero e digitado a mao neste arquivo).
 """
+import os
 from pathlib import Path
 
 from reportlab.lib.pagesizes import A4
@@ -26,7 +27,7 @@ N_SEEDS_K1 = n_seeds("k1")
 
 HERE = Path(__file__).resolve().parent
 FIG = HERE / "figuras"
-OUT = HERE / "artigo.pdf"
+OUT = Path(os.environ.get("ARTICLE_OUT", str(HERE / "artigo.pdf")))
 
 # ---------------------------------------------------------------- layout --
 PAGE_W, PAGE_H = A4
@@ -34,7 +35,10 @@ MARGIN = 0.72 * inch
 COL_GAP = 0.28 * inch
 USABLE_W = PAGE_W - 2 * MARGIN
 COL_W = (USABLE_W - COL_GAP) / 2
-HEADER_H = 2.35 * inch
+# O cabeçalho precisa comportar título, autoria, resumo e palavras-chave em
+# largura total. Se for menor, o resumo invade a primeira coluna e força a
+# introdução a começar na segunda, criando um grande vazio na página inicial.
+HEADER_H = 3.85 * inch
 
 header_frame = Frame(MARGIN, PAGE_H - MARGIN - HEADER_H, USABLE_W, HEADER_H,
                       id="header", showBoundary=0,
@@ -51,6 +55,28 @@ col2 = Frame(MARGIN + COL_W + COL_GAP, MARGIN, COL_W, PAGE_H - 2 * MARGIN,
 
 full_frame = Frame(MARGIN, MARGIN, USABLE_W, PAGE_H - 2 * MARGIN,
                     id="full", showBoundary=0, leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=0)
+
+# Página de resultados: a figura-síntese ocupa toda a largura no topo e o
+# restante do conteúdo continua em duas colunas. Isso mantém a hierarquia
+# visual do artigo sem reservar uma página inteira apenas para as figuras.
+RESULTS_TOP_H = 2.85 * inch
+RESULTS_GAP = 0.08 * inch
+RESULTS_BOTTOM_H = PAGE_H - 2 * MARGIN - RESULTS_TOP_H - RESULTS_GAP
+results_top = Frame(
+    MARGIN, PAGE_H - MARGIN - RESULTS_TOP_H, USABLE_W, RESULTS_TOP_H,
+    id="results_top", showBoundary=0,
+    leftPadding=0, rightPadding=0, topPadding=0, bottomPadding=3,
+)
+results_col1 = Frame(
+    MARGIN, MARGIN, COL_W, RESULTS_BOTTOM_H,
+    id="results_col1", showBoundary=0,
+    leftPadding=0, rightPadding=9, topPadding=0, bottomPadding=0,
+)
+results_col2 = Frame(
+    MARGIN + COL_W + COL_GAP, MARGIN, COL_W, RESULTS_BOTTOM_H,
+    id="results_col2", showBoundary=0,
+    leftPadding=9, rightPadding=0, topPadding=0, bottomPadding=0,
+)
 
 
 def on_page(canvas, doc):
@@ -69,6 +95,11 @@ doc.addPageTemplates([
     PageTemplate(id="FirstPage", frames=[header_frame, col1_p1, col2_p1], onPage=on_page),
     PageTemplate(id="LaterPages", frames=[col1, col2], onPage=on_page),
     PageTemplate(id="FullWidth", frames=[full_frame], onPage=on_page),
+    PageTemplate(
+        id="ResultsMixed",
+        frames=[results_top, results_col1, results_col2],
+        onPage=on_page,
+    ),
 ])
 
 # ----------------------------------------------------------------- styles --
@@ -92,8 +123,21 @@ S_H2 = ParagraphStyle("h2", parent=S_H2, fontName="Times-BoldItalic")
 S_BODY = ParagraphStyle("body", fontName="Times-Roman", fontSize=9.3, leading=11.6,
                          alignment=TA_JUSTIFY, spaceAfter=5.5, firstLineIndent=12)
 S_BODY_NOINDENT = ParagraphStyle("body_ni", parent=S_BODY, firstLineIndent=0)
+S_BODY_COMPACT = ParagraphStyle(
+    "body_compact", parent=S_BODY, fontSize=9.0, leading=10.9, spaceAfter=4.2,
+)
+S_BODY_COMPACT_NOINDENT = ParagraphStyle(
+    "body_compact_ni", parent=S_BODY_COMPACT, firstLineIndent=0,
+)
+S_H2_COMPACT = ParagraphStyle(
+    "h2_compact", parent=S_H2, leading=11.5, spaceBefore=5, spaceAfter=2,
+)
 S_CAPTION = ParagraphStyle("caption", fontName="Times-Roman", fontSize=8.2, leading=10,
                             alignment=TA_JUSTIFY, spaceBefore=3, spaceAfter=8)
+S_CAPTION_RESULTS = ParagraphStyle(
+    "caption_results", parent=S_CAPTION,
+    fontSize=7.8, leading=9.0, spaceBefore=2, spaceAfter=5,
+)
 S_TABLE_TITLE = ParagraphStyle("tabletitle", fontName="Times-Roman", fontSize=8.2, leading=10,
                                 alignment=TA_CENTER, spaceAfter=3)
 S_REF = ParagraphStyle("ref", fontName="Times-Roman", fontSize=8.3, leading=10.2,
@@ -399,65 +443,92 @@ story.append(KeepTogether([
     t3,
 ]))
 
-story.append(Paragraph(
-    "As Figs. 3&ndash;4 (inline abaixo) mostram as duas análises "
-    "complementares: efeito do custo de troca de contexto e sensibilidade "
-    "do Round Robin ao quantum.",
-    S_BODY))
-
-img_slowdown = Image(str(FIG / "fig_slowdown.png"), width=COL_W, height=COL_W * (4 / 6))
-story.append(KeepTogether([
-    img_slowdown,
-    Paragraph(f"Fig. 3. Slowdown médio por cenário e algoritmo (métrica auxiliar). "
-              f"Média &plusmn; IC95%, {N_SEEDS_MAIN} seeds/cenário.", S_CAPTION),
-]))
-
-img_csw = Image(str(FIG / "fig_complementary_csw.png"), width=COL_W, height=COL_W * (4 / 6))
-story.append(KeepTogether([
-    img_csw,
-    Paragraph("Fig. 4. Turnaround médio em CPU-bound com custo de troca de "
-              "contexto 1 (principal) vs. 0 (complementar).", S_CAPTION),
-]))
-
-img_quantum = Image(str(FIG / "fig_quantum_sensitivity.png"), width=COL_W, height=COL_W * (4 / 8))
-story.append(KeepTogether([
-    img_quantum,
-    Paragraph("Fig. 5. Round Robin em CPU-bound: quantum=4 (principal) vs. "
-              "quantum=20 (complementar).", S_CAPTION),
-]))
-
-# --------------------------------------------------- full-width figures ---
-story.append(NextPageTemplate("FullWidth"))
+# A figura principal abre a página de resultados em largura total; as duas
+# primeiras tabelas aproveitam o espaço disponível na página anterior.
+story.append(NextPageTemplate("ResultsMixed"))
 story.append(PageBreak())
 
-img_main = Image(str(FIG / "fig_main_metrics.png"), width=USABLE_W, height=USABLE_W * (4.2 / 12))
+main_fig_w = 0.92 * USABLE_W
+img_main = Image(
+    str(FIG / "fig_main_metrics.png"),
+    width=main_fig_w,
+    height=main_fig_w * (4.2 / 12),
+)
+img_main.hAlign = "CENTER"
 story.append(img_main)
 story.append(Paragraph(
     f"Fig. 1. Turnaround médio, trocas de contexto (escala log) e índice de "
     f"Jain do slowdown, por cenário e algoritmo. Média &plusmn; IC95%, {N_SEEDS_MAIN} "
     f"seeds/cenário, {N_PROC_MAIN} processos/execução, custo de troca de contexto=1.",
     S_CAPTION))
-
-story.append(Spacer(1, 10))
-img_prio = Image(str(FIG / "fig_priority_breakdown.png"), width=5.9 * inch, height=5.9 * inch * (4.5 / 7))
-story.append(Table([[img_prio]], colWidths=[USABLE_W], hAlign="CENTER", style=TableStyle([
-    ("ALIGN", (0, 0), (-1, -1), "CENTER"),
-])))
-story.append(Paragraph(
-    f"Fig. 2. Turnaround médio por classe de prioridade (alta: prioridade "
-    f"&le;3; baixa: &ge;8) no cenário de prioridades desbalanceadas, com a "
-    f"razão baixa/alta anotada acima de cada par de barras. FCFS não "
-    f"diferencia (1,00&times;); Prioridade estática discrimina fortemente "
-    f"(6,47&times;); o algoritmo próprio fica entre os dois extremos "
-    f"(1,87&times;). Média &plusmn; IC95%, {N_SEEDS_MAIN} seeds.",
-    S_CAPTION))
-
 story.append(NextPageTemplate("LaterPages"))
-story.append(PageBreak())
+
+img_prio_w = 0.76 * COL_W
+img_prio = Image(
+    str(FIG / "fig_priority_breakdown.png"),
+    width=img_prio_w,
+    height=img_prio_w * (4.5 / 7),
+)
+img_prio.hAlign = "CENTER"
+story.append(KeepTogether([
+    img_prio,
+    Paragraph(
+        f"Fig. 2. Turnaround médio por classe de prioridade (alta: prioridade "
+        f"&le;3; baixa: &ge;8) no cenário de prioridades desbalanceadas, com a "
+        f"razão baixa/alta anotada acima de cada par de barras. FCFS não "
+        f"diferencia (1,00&times;); Prioridade estática discrimina fortemente "
+        f"(6,47&times;); o algoritmo próprio fica entre os dois extremos "
+        f"(1,87&times;). Média &plusmn; IC95%, {N_SEEDS_MAIN} seeds.",
+        S_CAPTION_RESULTS,
+    ),
+]))
+
+inline_fig_w = 0.82 * COL_W
+img_slowdown = Image(
+    str(FIG / "fig_slowdown.png"),
+    width=inline_fig_w,
+    height=inline_fig_w * (4 / 6),
+)
+img_slowdown.hAlign = "CENTER"
+story.append(KeepTogether([
+    img_slowdown,
+    Paragraph(f"Fig. 3. Slowdown médio por cenário e algoritmo (métrica auxiliar). "
+              f"Média &plusmn; IC95%, {N_SEEDS_MAIN} seeds/cenário.", S_CAPTION_RESULTS),
+]))
+
+img_csw = Image(
+    str(FIG / "fig_complementary_csw.png"),
+    width=inline_fig_w,
+    height=inline_fig_w * (4 / 6),
+)
+img_csw.hAlign = "CENTER"
+story.append(KeepTogether([
+    img_csw,
+    Paragraph("Fig. 4. Turnaround médio em CPU-bound com custo de troca de "
+              "contexto 1 (principal) vs. 0 (complementar).", S_CAPTION_RESULTS),
+]))
+
+img_quantum = Image(
+    str(FIG / "fig_quantum_sensitivity.png"),
+    width=inline_fig_w,
+    height=inline_fig_w * (4 / 8),
+)
+img_quantum.hAlign = "CENTER"
+story.append(KeepTogether([
+    img_quantum,
+    Paragraph("Fig. 5. Round Robin em CPU-bound: quantum=4 (principal) vs. "
+              "quantum=20 (complementar).", S_CAPTION_RESULTS),
+]))
+
+story.append(Paragraph(
+    "As Figs. 3&ndash;4 (inline abaixo) mostram as duas análises "
+    "complementares: efeito do custo de troca de contexto e sensibilidade "
+    "do Round Robin ao quantum.",
+    S_BODY))
 
 # ============================================================ SECAO VI ====
 story.append(Paragraph("VI. DISCUSSÃO", S_H1))
-story.append(Paragraph("A. Round Robin: turnaround e trocas de contexto muito piores", S_H2))
+story.append(Paragraph("A. Round Robin: turnaround e trocas de contexto muito piores", S_H2_COMPACT))
 rr_q4 = mc("cpu_bound", "rr", "avg_turnaround")
 rr_q20 = mc("cpu_bound", "rr", "avg_turnaround", dataset="quantum")
 rr_cs_q4 = mc("cpu_bound", "rr", "context_switches", decimals=0)
@@ -479,9 +550,9 @@ story.append(Paragraph(
     f"melhora de quase uma ordem de grandeza (Fig. 5), confirmando que o "
     f"problema é a relação quantum/rajada, não uma limitação estrutural do "
     f"Round Robin.",
-    S_BODY_NOINDENT))
+    S_BODY_COMPACT_NOINDENT))
 
-story.append(Paragraph("B. Efeito do custo de troca de contexto", S_H2))
+story.append(Paragraph("B. Efeito do custo de troca de contexto", S_H2_COMPACT))
 rr_csw0 = mc("cpu_bound", "rr", "avg_turnaround", dataset="csw0")
 fcfs_csw0 = mc("cpu_bound", "fcfs", "avg_turnaround", dataset="csw0")
 story.append(Paragraph(
@@ -496,9 +567,9 @@ story.append(Paragraph(
     f"experimento confirma que grande parte da desvantagem do RR neste "
     f"cenário vem do <i>custo acumulado das trocas</i>, não apenas da "
     f"ordem de execução em si (Fig. 4).",
-    S_BODY_NOINDENT))
+    S_BODY_COMPACT_NOINDENT))
 
-story.append(Paragraph("C. O algoritmo próprio diferencia por prioridade sem inanição extrema", S_H2))
+story.append(Paragraph("C. O algoritmo próprio diferencia por prioridade sem inanição extrema", S_H2_COMPACT))
 story.append(Paragraph(
     f"O resultado mais nítido do projeto é a Tabela III / Fig. 2: no "
     f"cenário de prioridades desbalanceadas, o FCFS trata processos de "
@@ -526,9 +597,9 @@ story.append(Paragraph(
     f"{ratio('cpu_bound','custom','avg_turnaround_low_priority','avg_turnaround_high_priority', dataset='csw0'):.2f}".replace('.', ',') +
     f"&times; respectivamente &mdash; não é um artefato de um único "
     f"cenário.",
-    S_BODY_NOINDENT))
+    S_BODY_COMPACT_NOINDENT))
 
-story.append(Paragraph("D. O algoritmo próprio não supera o FCFS na média agregada &mdash; e por quê", S_H2))
+story.append(Paragraph("D. O algoritmo próprio não supera o FCFS na média agregada &mdash; e por quê", S_H2_COMPACT))
 story.append(Paragraph(
     f"Apesar do resultado da seção anterior, o turnaround médio "
     f"<i>agregado</i> (todos os processos, não só por classe) do "
@@ -567,7 +638,7 @@ story.append(Paragraph(
     f"VI-C: ele entrega quase toda a robustez do FCFS contra inanição "
     f"enquanto ainda usa o sinal de prioridade de forma clara &mdash; "
     f"algo que nem FCFS nem Prioridade pura fazem ao mesmo tempo.",
-    S_BODY_NOINDENT))
+    S_BODY_COMPACT_NOINDENT))
 
 # ============================================================ SECAO VII ===
 story.append(Paragraph("VII. CONCLUSÃO", S_H1))
@@ -595,7 +666,7 @@ story.append(Paragraph(
     "variante preemptiva do algoritmo próprio, para tratar o caso de uma "
     "rajada de baixa prioridade muito longa bloquear um processo de "
     "prioridade alta recém-chegado.",
-    S_BODY_NOINDENT))
+    S_BODY_COMPACT_NOINDENT))
 
 # ============================================================ REFERENCIAS =
 story.append(Paragraph("REFERÊNCIAS", S_H1))
