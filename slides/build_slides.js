@@ -2,7 +2,7 @@ const pptxgen = require("pptxgenjs");
 const path = require("path");
 const fs = require("fs");
 
-const FIG = path.join(__dirname, "build");
+const FIG = path.join(__dirname, "..", "report", "figuras");
 
 // Le a quantidade real de seeds a partir dos dados consolidados, em vez de
 // hardcoded no texto dos slides (mesma logica de scripts/generate_plots.py
