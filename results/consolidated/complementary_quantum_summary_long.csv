@@ -1,0 +1,7 @@
+scenario,scenario_label,algorithm,algorithm_label,metric,metric_label,mean,ci95,n_seeds,n_processes,quantum,context_switch_cost,io_devices
+cpu_bound,CPU-bound,rr,Round Robin,avg_slowdown,Slowdown medio (auxiliar),7.742316697000001,0.1628132182073757,1000,1000,20,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_turnaround,Turnaround medio,399.843694,8.535864908657262,1000,1000,20,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_turnaround_high_priority,Turnaround medio -- prioridade alta (<=3),399.037769261,8.689063313308209,1000,1000,20,1,1
+cpu_bound,CPU-bound,rr,Round Robin,avg_turnaround_low_priority,Turnaround medio -- prioridade baixa (>=8),401.0112208670001,8.556294244423063,1000,1000,20,1,1
+cpu_bound,CPU-bound,rr,Round Robin,context_switches,Trocas de contexto,3159.961,4.188347049987326,1000,1000,20,1,1
+cpu_bound,CPU-bound,rr,Round Robin,jain_slowdown,Indice de Jain do slowdown (%),61.610474421999996,0.3683317328671565,1000,1000,20,1,1

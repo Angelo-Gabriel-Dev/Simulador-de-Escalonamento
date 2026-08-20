@@ -1,0 +1,5 @@
+scenario_label,Algoritmo proprio (Aging+Rajada Estimada),FCFS,Prioridade,Round Robin
+Aleatorio equilibrado,254.004 +/- 3.243,178.132 +/- 2.344,317.296 +/- 5.596,197.913 +/- 2.657
+CPU-bound,306.189 +/- 4.036,235.375 +/- 3.381,445.450 +/- 8.755,289.785 +/- 4.343
+I/O-bound,138.776 +/- 1.165,138.203 +/- 1.163,138.884 +/- 1.166,139.418 +/- 1.164
+Prioridades desbalanceadas,307.596 +/- 4.270,177.842 +/- 2.552,425.401 +/- 10.248,197.578 +/- 2.880
